@@ -5,10 +5,18 @@ pipeline {
         maven 'Default'
     }
 
+    parameters {
+        string(name: 'BRANCH', defaultValue: 'main', description: 'the branch of the repository to build')
+    }
+
+    environment {
+        BUILD_NUMBER = "${env.BUILD_NUMBER}"
+    }
+
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/farshidmh/jenkins-java'
+                git branch: '${params.BRANCH}', url: 'https://github.com/farshidmh/jenkins-java'
             }
         }
 
@@ -20,6 +28,7 @@ pipeline {
 
         stage('Build') {
             steps {
+                echo 'Building ${env.BUILD_NUMBER}...'
                 sh 'mvn clean package'
             }
         }
