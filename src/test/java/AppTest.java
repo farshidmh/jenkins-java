@@ -10,6 +10,7 @@ public class AppTest {
     public void testAdd() {
         App app = new App();
         assertEquals(app.add(1, 2), 3);
+        assertEquals(app.add(2, 2), 5);
     }
 
     @Test
